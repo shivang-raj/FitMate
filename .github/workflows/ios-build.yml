@@ -1,0 +1,43 @@
+# Builds the iOS app on a GitHub-hosted Mac, because Xcode only runs on macOS.
+# Download the results from the run's "Artifacts" section:
+#   FitMate-unsigned.ipa  – sideload onto an iPhone (e.g. with Sideloadly using your Apple ID)
+#   FitMate-simulator.zip – drag FitMate.app onto any iOS Simulator
+name: iOS build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Build for the iOS Simulator
+        run: |
+          xcodebuild -project ios/FitMate.xcodeproj -target FitMate \
+            -sdk iphonesimulator -configuration Release \
+            SYMROOT="$PWD/build" CODE_SIGNING_ALLOWED=NO build
+          cd build/Release-iphonesimulator
+          zip -qr "$GITHUB_WORKSPACE/FitMate-simulator.zip" FitMate.app
+
+      - name: Build unsigned .ipa for iPhone
+        run: |
+          xcodebuild -project ios/FitMate.xcodeproj -target FitMate \
+            -sdk iphoneos -configuration Release \
+            SYMROOT="$PWD/build" CODE_SIGNING_ALLOWED=NO build
+          mkdir -p Payload
+          cp -R build/Release-iphoneos/FitMate.app Payload/
+          zip -qr FitMate-unsigned.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FitMate-iOS
+          path: |
+            FitMate-unsigned.ipa
+            FitMate-simulator.zip

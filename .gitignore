@@ -1,0 +1,26 @@
+# Built app files (share these via GitHub Releases, not git)
+dist/
+*.apk
+*.ipa
+
+# Android / Gradle
+android/.gradle/
+android/.kotlin/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Xcode
+ios/**/xcuserdata/
+ios/**/*.xcuserstate
+ios/build/
+DerivedData/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,4 @@
+<resources>
+    <!-- Compose draws the UI; this theme only styles the window before it loads. -->
+    <style name="Theme.FitMate" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
