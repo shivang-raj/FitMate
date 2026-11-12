@@ -1,0 +1,55 @@
+name: Bug Report
+description: Report a bug or unexpected behaviour in FitMate.
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you for helping improve FitMate! Please provide enough detail to reproduce the issue."
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: Clearly describe the problem.
+      placeholder: What happened?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Explain how to reproduce the bug.
+      placeholder: |
+        1. Open FitMate
+        2. Navigate to ...
+        3. Perform ...
+        4. Observe the error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: Android, iOS, Desktop, or Backend.
+      placeholder: Android
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Logs
+      description: Add screenshots or relevant error logs, if available.
+    validations:
+      required: false
