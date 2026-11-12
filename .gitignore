@@ -42,3 +42,8 @@ desktop/build/
 
 # Local SQLite database
 backend/fitmate.db
+
+# Local backup files
+*.backup
+*.backup.*
+*.backup*

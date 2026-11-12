@@ -290,3 +290,171 @@ By using classes, objects, inheritance, polymorphism, abstraction, encapsulation
 ---
 
 **FitMate – Your Personal Fitness Companion**
+
+## Developer Setup Notes
+
+
+
+### Backend configuration
+
+
+
+The YouTube tutorial service requires a YouTube Data API v3 key.
+
+
+
+```bash
+
+cd backend
+
+python3 -m venv .venv
+
+source .venv/bin/activate
+
+pip install -r requirements.txt
+
+cp .env.example .env
+
+```
+
+
+
+Add your own key to `backend/.env`:
+
+
+
+```env
+
+YOUTUBE_API_KEY=your_youtube_api_key_here
+
+```
+
+
+
+Start the backend from the `backend` directory:
+
+
+
+```bash
+
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+```
+
+
+
+API documentation: http://127.0.0.1:8000/docs
+
+
+
+Never commit your `.env` file or expose your API key in client applications.
+
+
+
+### Android backend connection
+
+
+
+- Android emulator: use `http://10.0.2.2:8000` to access the development computer.
+
+- Physical Android device: use your computer LAN IP and ensure both devices are on the same Wi-Fi network.
+
+
+
+Update the base URL in `android/app/src/main/java/com/fitmate/app/tutorial/TutorialApiClient.kt` for your environment. Do not commit a personal LAN IP.
+
+
+
+### Desktop development
+
+
+
+The Desktop application uses Kotlin, Jetpack Compose, and JCEF for embedded tutorial playback.
+
+
+
+From the repository root, run:
+
+
+
+```bash
+
+cd desktop
+
+../android/gradlew --no-daemon -p . run
+
+```
+
+
+
+The first launch may download Gradle dependencies and the JCEF runtime. Keep the backend running separately for tutorial search.
+
+
+
+### iOS development
+
+
+
+The iOS application requires macOS and Xcode. Open `ios/FitMate.xcodeproj`, select the FitMate scheme and an iOS 16 or newer simulator, and click Run.
+
+
+
+### Running tests
+
+
+
+Android unit tests:
+
+
+
+```bash
+
+cd android
+
+./gradlew testDebugUnitTest
+
+```
+
+
+
+Backend tests, if present in the checkout:
+
+
+
+```bash
+
+cd backend
+
+python -m pytest
+
+```
+
+
+
+## Security
+
+
+
+- Keep API keys and credentials private.
+
+- Use HTTPS when deploying the backend publicly.
+
+- Do not commit local databases, build outputs, or backup files.
+
+- See [SECURITY.md](SECURITY.md) for vulnerability reporting.
+
+
+
+## Contributing
+
+
+
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) and follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+
+
+## License
+
+
+
+FitMate is available under the [MIT License](LICENSE).
